@@ -10,5 +10,37 @@
 #+select_tags: export
 #+exclude_tags: noexport
 #+creator: Emacs 26.1 (Org mode 9.2.3)
-* A desktop gamified task manager 
-* 
+* A desktop gamified task manager
+This application will reward you with bells and whistles when you finish your tasks on time.
+In simple terms, this app will have the tasks, the goals and the deadline for your tasks.
+When you finish a task, the application will reward you.
+It will also keep track of your successes and failures.
+* Needs and features.
+** Main task window
+Create a class to handle different windows. 
+** Adding a task
+Includes defining task, scheduling and tracking a task.
+
+** Closing a task.
+Reporting successes and failures. It also helps you take note of lessons learned.
+
+** Listing tasks
+List needs to be possible to filter on project, status (Started, On-time, Late, Success) Time scheduled, Date scheduled, Time & Date finished.
+
+** Storing project data
+
+** Initiating your directory
+You may want to use a version controlled repository for your project, in fact, you should.
+To do this, just run git init in the library. Alternatively, create a repository in one of the web-based ones and pull it down.
+
+* installing Dependcies
+
+
+#+BEGIN_SRC sh
+npm install electron materialize-css
+#+END_SRC
+
+#+begin_src javascript :tangle main.js
+const {app, ipcMain} = require('electron')
+const path = require('path')
+#+end_src

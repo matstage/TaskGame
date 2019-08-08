@@ -1,0 +1,31 @@
+{
+  "name": "taskgame",
+  "version": "1.0.0",
+  "description": "This is a task app that uses gamification to incourage you in your endeavors.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matstage/TaskGame.git"
+  },
+  "keywords": [
+    "Task",
+    "project",
+    "Management",
+    "Gamification"
+  ],
+  "author": "Mats Tage Axelsson",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/matstage/TaskGame/issues"
+  },
+  "homepage": "https://github.com/matstage/TaskGame#readme",
+  "dependencies": {
+    "electron": "^5.0.8",
+    "materialize-css": "^1.0.0",
+    "spectre.css": "^0.5.8"
+  }
+}
