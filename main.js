@@ -1,14 +1,33 @@
-const {app, BrowserWindow, ipcMain, Menu, ipcMain, ipcRenderer} = require('electron');
-const url = require('url');
-const path = require('path');
+// The main electron Modules
 
-const Window = require('./Window.js');
-const DataStore = require('./DataStore.js');
+const {app, ipcMain} = require('electron')
+const path = require('path')
 
-let mainWindow;
+const Window = require('./Window.js')
+const DataStore = require('./DataStore.js')
+
+require('electron-reload');
+
+// create the Store for my tasks
+const taskData =new DataStore({name: 'Task List'})
+
+function main () {
+    // Task list window
+    let mainWindow = new Window({
+        file: path.join('renderer', 'mainWindow'.html)
+    })
+
+    // Add taskWindow
+    let addTaskWindow
+
+    //Initialize Task datastore
+    mainWindow.once('show', () =>  {
+        mainWindow.webContents.send('tasks', taskList.tasks)
+    })
+}
+
+
 let addTaskWindow;
-let showResultsWindow;
-
 // Listen for application to be ready
 app.on('ready', function(){
     // Create the main window
@@ -16,13 +35,18 @@ app.on('ready', function(){
         {
             webPreferences: {nodeIntegration: true}
         }
-    );
+    )
+
+
+
+
     // Load HTML file into window
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainWindow.html'),
+        pathname: path.join('renderer', mainWindow.html'),
         protocol: 'file',
         slashes: true,
-    }));
+    })
+)
 
     // Close all when closing main Window
     mainWindow.on('closed', function(){
@@ -44,16 +68,6 @@ function createAddTaskWindow(){
         webPreferences: {nodeIntegration: true}
     });
 };
-
-// Handle showResultsWindow
-function createShowResultsWindow(){
-    showResultsWindow = new Browser({
-        width: 400,
-        height: 200,
-        title: 'Your task success rate',
-        webPreferences: {nodeIntegration: true}
-    });
-}
 
 
 // Menu Template

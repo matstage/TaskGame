@@ -17,7 +17,7 @@ When you finish a task, the application will reward you.
 It will also keep track of your successes and failures.
 * Needs and features.
 ** Main task window
-Create a class to handle different windows. 
+Create a class to handle different windows.
 ** Adding a task
 Includes defining task, scheduling and tracking a task.
 
@@ -28,13 +28,20 @@ Reporting successes and failures. It also helps you take note of lessons learned
 List needs to be possible to filter on project, status (Started, On-time, Late, Success) Time scheduled, Date scheduled, Time & Date finished.
 
 ** Storing project data
-
+We create a subclass that stores the data. When a change of storage system is needed, we change the class and leave the other code alone.
 ** Initiating your directory
 You may want to use a version controlled repository for your project, in fact, you should.
 To do this, just run git init in the library. Alternatively, create a repository in one of the web-based ones and pull it down.
 
-* installing Dependcies
+* Installing Dependencies
 
+
+* File structure
+Files are separated in a few files per window, usually an HTML file and a corresponding JavaScript file.
+The exception is the main.js file that controls the whole process.
+
+'main.js' in the root directory of the application sets up as little as possible while it loads in, requires the classes.
+Theses classes are
 
 #+BEGIN_SRC sh
 npm install electron materialize-css
