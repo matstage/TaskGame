@@ -2,16 +2,10 @@
 
 const { ipcRenderer } = require('electron');
 
+//Delete a task from existing list
 const deleteTask = (e) => {
     ipcRenderer.send('delete-task', e.target.textContent)
 };
-
-//Create a new task from button
-const createTask = (e) => {
-    ipcRenderer.send('add-task')
-}
-
-
 
 //Handle the updating the stored tasks
 ipcRenderer.on('tasks', (event, tasks) => {
