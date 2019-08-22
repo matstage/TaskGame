@@ -6,38 +6,38 @@ class DataStore extends Store {
     constructor (settings) {
         super(settings);
 
-        // initialize with todos or empty array
-        this.todos = this.get('todos') || [];
+        // initialize with tasks or empty array
+        this.tasks = this.get('tasks') || [];
     }
 
-    saveTodos () {
-        // save todos to JSON file
-        this.set('todos', this.todos);
+    saveTasks () {
+        // save tasks to JSON file
+        this.set('tasks', this.tasks);
 
         // returning 'this' allows method chaining
         return this;
     }
 
-    getTodos () {
-        // set object's todos to todos in JSON file
-        this.todos = this.get('todos') || [];
+    getTasks () {
+        // set object's tasks to tasks in JSON file
+        this.tasks = this.get('tasks') || [];
 
         return this;
     }
 
-    addTodo (todo) {
-        // merge the existing todos with the new todo
-        this.todos = [ ...this.todos, todo ];
+    addTask (task) {
+        // merge the existing tasks with the new task
+        this.tasks = [ ...this.tasks, task ];
 
-        return this.saveTodos();
+        return this.saveTasks();
     }
 
-    deleteTodo (todo) {
-        // filter out the target todo
-        this.todos = this.todos.filter(t => t !== todo);
+    deleteTask (task) {
+        // filter out the target task
+        this.tasks = this.tasks.filter(t => t !== task);
 
-        return this.saveTodos()
+        return this.saveTasks();
     }
 }
 
-module.exports = DataStore
+module.exports = DataStore;

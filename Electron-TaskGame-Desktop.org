@@ -51,3 +51,50 @@ npm install electron materialize-css
 const {app, ipcMain} = require('electron')
 const path = require('path')
 #+end_src
+
+#+begin_src javascript :tangle
+// The main electron Modules
+
+const {app, ipcMain} = require('electron')
+const path = require('path')
+
+const Window = require('./Window.js')
+const DataStore = require('./DataStore.js')
+
+require('electron-reload');
+
+// create the Store for my tasks
+const taskData =new DataStore({name: 'Task List'})
+#+end_src
+
+#+begin_src json
+{
+  "name": "taskgame",
+  "version": "1.0.0",
+  "description": "This is a task app that uses gamification to incourage you in your endeavors.",
+  "main": "main.js",
+    "scripts": {
+        "start" : "electron .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+  },
+#+end_src
+
+As you can see in the script, test procedures are also defined but that is for another time.
+Further down in this file, you will soon see the packages that you install to make the project.
+To install your dependencies, use npm.
+
+#+begin_src sh
+npm install electron materialize-css
+#+end_src
+
+Note that you can install electron globally but that may cause problems if you have several projects running and you need to keep different versions for each project. You also do not need root to install in your project directory.
+
+**** The first code
+
+Now it is time to write your first file with code in it.
+For anything to work, you must include the parts you need, in our case Electron, at least.
+
+#+begin_src javascript tangle: main.js
+const {app, BrowserWindow, Menu, ipcMain, ipcRenderer} = require('electron')
+const path = require('path')
+#+end_src

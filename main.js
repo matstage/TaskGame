@@ -1,94 +1,75 @@
 // The main electron Modules
 
-const {app, ipcMain} = require('electron')
-const path = require('path')
+const path = require('path');
+const {app, ipcMain} = require('electron');
 
-const Window = require('./Window.js')
-const DataStore = require('./DataStore.js')
+const Window = require('./Window.js');
+const DataStore = require('./DataStore.js');
 
-require('electron-reload');
+
+require('electron-reload')(__dirname);
 
 // create the Store for my tasks
-const taskData =new DataStore({name: 'Task List'})
+const taskData = new DataStore({name: 'Task List'});
 
 function main () {
-    // Task list window
+    // Create Task list window in memory
     let mainWindow = new Window({
-        file: path.join('renderer', 'mainWindow'.html)
-    })
+        file: path.join('renderer', 'mainWindow.html')
+    });
 
-    // Add taskWindow
+    // Add task Window in memory
     let addTaskWindow
 
-    //Initialize Task datastore
+    //Initialize mainWindow with Task datastore
+    //'show' means what it says about the window
     mainWindow.once('show', () =>  {
-        mainWindow.webContents.send('tasks', taskList.tasks)
-    })
-}
+        mainWindow.webContents.send('tasks', taskData.tasks);
+    });
 
+    //Event Handlers
+    //Create add Task Window
+    ipcMain.on('add-task-window', () => {
+        // Create the new window when users click 'Add Task'
+        if(!addTaskWindow){
+            //create new Add Task Window
+            addTaskWindow = new Window({
+                file: path.join('renderer', 'addTaskWindow.html'),
+                width: 400,
+                height: 400,
+                // make addTaskWindow a child to the mainWindow
+                parent: mainWindow
+            });
 
-let addTaskWindow;
-// Listen for application to be ready
-app.on('ready', function(){
-    // Create the main window
-    mainWindow = new BrowserWindow(
-        {
-            webPreferences: {nodeIntegration: true}
+            //Cleanup Add Task Window
+            addTaskWindow.on('closed', () => {
+                addTaskWindow = null;
+            })
         }
-    )
+    });
 
+    //New task incoming event
 
+    ipcMain.on('add-task', (event, task) => {
+        const updatedTasks = taskData.addTask(task).tasks
 
-
-    // Load HTML file into window
-    mainWindow.loadURL(url.format({
-        pathname: path.join('renderer', mainWindow.html'),
-        protocol: 'file',
-        slashes: true,
+        //Update the window
+        mainWindow.send('tasks', updatedTasks)
     })
-)
 
-    // Close all when closing main Window
-    mainWindow.on('closed', function(){
-        app.quit();
-    });
-    //Build menu from Template
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    // Insert menu
-    Menu.setApplicationMenu(mainMenu);
-});
+    //Delete Task Event
+    ipcMain.on('delete-task', (event, task) => {
+        const updatedTasks = taskData.deleteTask(task).tasks
 
-// Handle create addTaskWindow
-function createAddTaskWindow(){
-    // Create the add task window
-    addTaskWindow = new BrowserWindow({
-        width: 300,
-        height: 200,
-        title: 'Add your new task',
-        webPreferences: {nodeIntegration: true}
-    });
-};
+        mainWindow.send('tasks', updatedTasks)
+    })
 
+}
+// End of function main
 
-// Menu Template
-const mainMenuTemplate = [
-    {
-        label:'File',
-        submenu:[
-            {
-                label: 'Add task',
-                accelerator: 'CmdOrCtrl + Shift + A',
-                click(){
-                    createAddTaskWindow();
-                },
-                label: 'Remove Task',
-                click(){
+// Listen for application to be ready
+app.on('ready', main);
 
-                }
-            }]
-
-}]
-
-/// Menu contains Add Task
-
-/// Menu contains showResults
+app.on('window-all-closed', function() {
+    app.quit()
+})

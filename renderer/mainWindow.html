@@ -3,17 +3,23 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Task List</title>
-        <link rel="stylesheet" href="materialize/css/materialize.min.css">
+        <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre.min.css">
+        <link rel="stylesheet" href="../style.css">
     </head>
-    <body>
-        <nav>
-            <div class="nav-wrapper">
-                <a class="brand-logo center">Task Game List</a>
-            </div>
-        </nav>
-        <ul id="Task list"></ul>
 
-<script src="./mainWindow.js">
+    <body>
+        <div class="container">
+            <div class="columns">
+                <div class="column col-10">
+                    <h1 class="text center">Task Game List</h1>
+
+                    <button id="createTaskBtn" type="button" class="btn">Create a new task
+                    </button>
+                    <ul id="taskList"></ul>
+                </div>
+            </div>
+        </div>
+        <script src="mainWindow.js"></script>
 
     </body>
 </html>

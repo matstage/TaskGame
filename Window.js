@@ -6,8 +6,9 @@ const { BrowserWindow } = require('electron');
 const defaultProps = {
     width: 500,
     height: 800,
-    show: false
-}
+    show: false,
+    webPreferences: {nodeIntegration: true}
+    }
 
 class Window extends BrowserWindow {
     constructor ({ file, ...windowSettings }) {
