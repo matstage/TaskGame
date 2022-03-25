@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/matstage/TaskGame#readme",
   "dependencies": {
-    "electron": "^9.4.0",
+    "electron": "^13.6.6",
     "electron-reload": "^1.5.0",
     "electron-store": "^4.0.0",
     "require": "^2.4.20",
